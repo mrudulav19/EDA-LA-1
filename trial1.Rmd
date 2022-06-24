@@ -1,0 +1,548 @@
+---
+title: "la1report"
+output:
+ 
+df_print: paged
+pdf_document: default
+word_document: default
+date: '2022-06-23'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+(pressure)
+```
+1.Length of data
+```{r(USA.Covid.Data)}
+length(USA.Covid.Data)
+```
+
+
+2.factor data
+```{r(USA.Covid.Data)}
+V2.f=factor(V2)
+V2.f
+```
+3.converting columns to dataframe
+```{r(USA.Covid.Data) }
+V2;V3
+ uniteds.df=data.frame(V2,V3)
+ str(uniteds.df)
+```
+4.length and dimnames of dataset
+```{r(USA.Covid.Data) }
+length(USA.Covid.Data)
+ dimnames(USA.Covid.Data)
+```
+5.making a dataframe
+```{r(USA.Covid.Data)}
+V2;V3
+ trt=c(rep('V2',length(V2)),rep('V3',length(V3)))
+trt
+ trt=c(rep('V2',length(V2)),rep('V3',length(V3)))
+ united=c(V2,V3)
+ data.frame(united,trt)
+```
+6.stacking
+```{r(USA.Covid.Data)}
+names(USA)
+ names(USA)=c('v2','v3')
+ names(USA)
+ usa=c('vtwo','vthree')
+ colnames(USA)
+ colnames(USA)=usa
+colnames(USA)
+ stack(USA)
+```
+7.making length of 2 columns in dataframe equal
+```{r(USA.Covid.Data)}
+length(V2)=length(V3)
+V2
+```
+8.Making a new dataframe from columns in existing dataframe
+```{r(USA.Covid.Data)}
+USA=data.frame(V2,V3)
+USA
+```
+9.converting dataframe to list & checking if it's a list
+```{r(USA.Covid.Data)}
+frame.list=as.list(USA.Covid.Data)
+frame.list
+str(frame.list)
+```
+10.converting list to dataframe & checking if it's a dataframe
+```{r(USA.Covid.Data)}
+ frame.list=data.frame(frame.list)
+str(frame.list)
+```
+11.converting some dataitems to matrix
+```{r(USA.Covid.Data)}
+length(V2)=length(V3)
+cbind(V2,V3)
+rbind(V3,V2)
+```
+12making replicate treatment factors
+```{r(USA.Covid.Data)}
+twt= factor(c(rep('V2',5),rep('V3',4)))
+twt
+factor(rep(c('V2','V3'),each=5))
+```
+13.adding new column to dataset
+```{r(USA.Covid.Data)}
+united
+USA.Covid.Data=data.frame(USA.Covid.Data,united)
+ USA.Covid.Data
+```
+14.adding new row to dataframe
+```{r(USA.Covid.Data)}
+ABC<-c(1,2,3,4,5,6,7,8,9,10,11)
+USA.Covid.Data['ABC',]=ABC
+ USA.Covid.Data
+```
+15.apply command
+```{r(USA.Covid.Data)}
+apply(USA.Covid.Data[2:6],2,median)
+```
+16.tapply() to Summarize Using a Grouping Variable
+```{r(USA.Covid.Data)}
+ tapply(USA.Covid.Data$V2, USA.Covid.Data$V3, V4 = sum)
+```
+17.aggregate command
+```{r(USA.Covid.Data)}
+aggregate(Length ~ site, data = USA.Covid.Data, FUN = mean)
+```
+18.array
+```{r(USA.Covid.Data)}
+USA.Covid.Data.hs=tapply(USA.Covid.Data$V1,list(USA.Covid.Data$V2,USA.Covid.Data$V3,USA.Covid.Data$V4),mean)
+str(USA.Covid.Data.hs)
+USA.Covid.Data.hs[1,1,1]
+USA.Covid.Data.hs[1:2,1,1]
+USA.Covid.Data.hs[1:2,1,1]
+class(USA.Covid.Data.hs)
+```
+19.omitting na
+```{r(USA.Covid.Data)}
+ na.omit(USA.Covid.Data)
+```
+20.boxplot
+```{r(USA.Covid.Data)}
+ plot(USA.Covid.Data$V2,USA.Covid.Data$V3)
+```
+21.row names
+```{r(USA.Covid.Data)}
+  row.names(USA.Covid.Data)
+```
+22.column names
+```{r(USA.Covid.Data)}
+ colnames(USA.Covid.Data)
+```
+23.Changing column names
+```{r(USA.Covid.Data)}
+ names(USA.Covid.Data)=c('a1','a2','a3','a4','a5','a6','a7','a8','a9','a10','a11')
+names(USA.Covid.Data)
+```
+24.Bar graph
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = V2, y = V3)) + geom_col()
+```
+25.Giving colour to bar graph
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_col(fill = "lightblue", colour = "black")
+```
+26.grouping bars together by second variable
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V1)) +
++     geom_col(position = "dodge")
+```
+27.Making a bar graph of counts
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = V2)) +
++     geom_bar()
+```
+28.filtering command
+```{r(USA.Covid.Data)}
+USA.Covid.Data %>%filter(V1=='Alabama')
+```
+29.attach object
+```{r(USA.Covid.Data)}
+attach(USA.Covid.Data)
+```
+30.Detach object
+```{r(USA.Covid.Data)}
+detach(USA.Covid.Data)
+```
+31.For narrower bars
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_col(width = 0.5)
+```
+32.For wider bars
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_col(width = 1)
+```
+33.select command
+```{r(USA.Covid.Data)}
+USA.Covid.Data %>% select(-length(1))
+```
+34.Mutate command
+```{r(USA.Covid.Data)}
+USA.Covid.Data %>% mutate(new_col='NA')
+```
+35.Filter command
+```{r(USA.Covid.Data)}
+USA.Covid.Data %>% filter(V4>1000,V1=='Alabama')
+```
+36.View command
+```{r(USA.Covid.Data)}
+ View(USA.Covid.Data)
+```
+37.reading files
+```{r(USA.Covid.Data)}
+ read.csv(USA.Covid.Data)
+```
+38.Reading only some rows and columns
+```{r(USA.Covid.Data)}
+USA.Covid.Data[1:3]
+```
+39.Displaying the dataset without the first column
+```{r(USA.Covid.Data)}
+ USA.Covid.Data[-1]
+```
+40.Ordering the dataset
+```{r(USA.Covid.Data)}
+
+```
+41.Ranking the dataset
+```{r(USA.Covid.Data)}
+order(USA.Covid.Data)
+```
+42.which command
+```{r(USA.Covid.Data)}
+ which(USA.Covid.Data=="Alabama")
+```
+43.Knowing the type of dataset
+```{r(USA.Covid.Data)}
+class(USA.Covid.Data)
+```
+44.Displaying the structure of dataset
+```{r(USA.Covid.Data)}
+str(USA.Covid.Data)
+```
+45.Displaying output of the values input
+```{r(USA.Covid.Data)}
+USA.Covid.Data[c('Alabama', 'Alaska'),]
+```
+46.returning top values from dataset
+```{r(USA.Covid.Data)}
+head(USA.Covid.Data,n=3)
+```
+47.Returning the bottom values from dataset
+```{r(USA.Covid.Data)}
+ tail(USA.Covid.Data,n=3)
+```
+48.Summary of data
+```{r(USA.Covid.Data)}
+summary(USA.Covid.Data)
+```
+49.Scatter plot
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_point()
+```
+50.Basic Histogram
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2)) +
+    geom_histogram()
+```
+51.Sequence generation
+```{r(USA.Covid.Data)}
+USA.Covid.Data[seq(1, length(USA.Covid.Data), 2)]
+```
+52.Violin Plot
+```{r(USA.Covid.Data)}
+hw_p <- ggplot(USA.Covid.Data, aes(x = V2, y = V3))
+hw_p +
++ geom_violin()
+```
+53.Adding means to boxplot
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = factor(V2), y = V3)) +
++     geom_boxplot() +
++     stat_summary(fun.y = "mean", geom = "point", shape = 23, size = 3,
++                  fill = "white")
+```
+54.the objects() or ls() function can be used to get a vector of character strings of the names of all objects in the environment. The names in the result are sorted
+```{r(USA.Covid.Data)}
+ls()
+```
+55.with() function enables us to evaluate an R expression within the function to be passed as an argument. It works on data frames only
+```{r(USA.Covid.Data)}
+with(USA.Covid.Data,sum(as.numeric(V2))
+```
+56.Correlation
+```{r(USA.Covid.Data)}
+cor.test(~ V2 + V3, data = USA.Covid.Data)
+```
+57.Deleting a column from dataframe
+```{r(USA.Covid.Data)}
+ USA.Covid.Data %>% select(-united)
+```
+58.Reordering columns in dataframe
+```{r(USA.Covid.Data)}
+ USA.Covid.Data %>% select(V2,V1,V3)
+```
+59.Renaming multiple columns in dataframe
+```{r(USA.Covid.Data)}
+USA.Covid.Data %>% rename(V9=v9,V10=v10)
+```
+60.Repeating values
+```{r(USA.Covid.Data)}
+vec<-rep(c(V3,V4),2)
+```
+61.Using select and filter
+```{(r(USA.Covid.Data))}
+ USA.Covid.Data %>% filter(V1=='Alabama') %>% select(V2>19000)
+```
+62.Setting colour of bar graph and ordered
+```{(r(USA.Covid.Data))}
+ggplot(USA.Covid.Data, aes(x = reorder(V8, V3), y = V3, fill = V4)) +
++     geom_col(colour = "black") +
++     scale_fill_manual(values = c("#669933", "#FFCC66")) +
++     xlab("State")
+```
+63.Coloring Negative and Positive Bars Differently
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V6)) +
++     geom_col(position = "identity")
+```
+64.Making a stack bar graph
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V4)) +
++     geom_col()
+```
+65.Making a histogram
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = 1340110)) +
+    geom_histogram()
+```
+66.Plotting a function curve
+```{r(USA.Covid.Data)}
+curve(x^3 - 5*x, from = -4, to = 4)
+```
+67.Reversing the stacked graph
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V4)) +
++     geom_col(position = position_stack(reverse = TRUE)) +
++     guides(fill = guide_legend(reverse = TRUE))
+```
+68.Adding labels to a bar graph
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = interaction(V2, V4), y = V3)) +
++     geom_col() +
++     geom_text(aes(label = V4), vjust = 1.5, colour = "white")
+```
+69.Adding labels to a stacked bar graph
+a)Sort by the Date and Cultivar columns
+b)Get the cumulative sum
+c)As data is sorted properly, we plot the bar graph
+```{r(USA.Covid.Data)}
+ ce<-USA.Covid.Data %>% arrange(V2,rev(V4))
+ce<-ce %>% group_by(V2) %>% mutate(label_y=cumsum(V3))
+ggplot(ce, aes(x = V2, y = V3, fill = V4)) +geom_col() +
+```
+70.Cleveland Dot plot
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_point()
+```
+71.Reordering the graph and removing the vertical lines in the cleveland dot plot graph
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = reorder(V3, V4))) +
++     geom_point(size = 3) + # Use a larger dot
++     theme_bw() +
++     theme(
++         panel.grid.major.x = element_blank(),
++         panel.grid.minor.x = element_blank(),
++         panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed")
++     )
+```
+72.Swapping the axes in the cleveland dot plot
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = reorder(V1, V2), y = V1)) +
++     geom_point(size = 3) + # Use a larger dot
++     theme_bw() +
++     theme(
++         panel.grid.major.y = element_blank(),
++         panel.grid.minor.y = element_blank(),
++         panel.grid.major.x = element_line(colour = "grey60", linetype = "dashed"),
++         axis.text.x = element_text(angle = 60, hjust = 1)
++     )
+```
+73.Line graph
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_line()
+```
+74.Adding points to line graph
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_line()+geom_point()
+```
+75.Adding colours to a line graph
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3, colour = V3)) +
++     geom_line()
+```
+76.Mapping variables to properties of points such as shape and fill
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V1, y = V2, fill = V4)) +
++     geom_line() +
++     geom_point(size = 4, shape = 21)
+```
+77.To avoid overlapping of points
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V1, y = V2, shape = V4)) +
++     geom_line(position = position_dodge(0.2)) + # Dodge lines by 0.2
++     geom_point(position = position_dodge(0.2), size = 4)
+```
+78.Changing appearance of lines
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_line(linetype = "dashed", size = 1, colour = "blue")
+```
+79.Giving all the lines a constant color
+```{r(USA.covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3, group = V4)) +
++     geom_line(colour = "darkgreen", size = 1.5)
+```
+80.Changing the appearance of points
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_line() +
++     geom_point(size = 4, shape = 22, colour = "darkred", fill = "pink")
+```
+81.Shaded area
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_area()
+```
+82.To get stacked shaded area
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V4)) +
++     geom_area()
+```
+83.Shaded area with reversed legend and color palette
+```{r(USA.Covid.Data)}
+ ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V4)) +
++     geom_area(colour = "black", size = .2, alpha = .4) +
++     scale_fill_brewer(palette = "Blues")
+```
+84.a stacked area graph with the overall height scaled to a constant
+value.
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3, fill = V4)) +
++     geom_area(position = "fill", colour = "black", size = .2, alpha = .4) +
++     scale_fill_brewer(palette = "Blues")
+```
+85.Getting subset of data
+```{r(USA.Covid.Data)}
+usa_mod <- USA.Covid.Data %>%
++     filter(V1 == "Florida") %>%
++     select(V2, V3, V4)
+```
+86.Adding confidence region
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_ribbon(aes(ymin = V2 - V3,
++                     ymax = V2 + V3),
++                 alpha = 0.2) +
++     geom_line()
+```
+87.Changing shape of point in scatter plot
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_point(shape = 21)
+```
+88.Changing size of the point
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2, y = V3)) +
++     geom_point(size = 1.5)
+```
+89.Balloon plot
+a)Create a base plot using the  data frame.plot
+b)V2 mapped to radius (default with scale_size_continuous)
+c)V2 mapped to area instead, and larger circles
+```{r(USA.Covid.Data)}
+ america <- USA.Covid.Data %>%
++     filter(V1 == "Arizona", V2 %in% USA.Covid.Data)
+ cdat_sp <- ggplot(america, aes(x = V2, y = V3, size = V4)) +
++     geom_point(shape = 21, colour = "black", fill = "cornsilk")
+ cdat_sp 
+cdat_sp +
++     scale_size_area(max_size = 15)
+```
+90.Making a scatter plot matrix
+```{r(USA.Covid.Data)}
+america_num <- select(V2, -V1)pairs(america_num)
+```
+91.Making multiple histograms from grouped data
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = 1340010)) +
+geom_histogram(fill = "white", colour = "black") +
+    facet_grid(V2 ~ .)
+```
+92.Making a density curve
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = V2)) +
++     geom_density()
+```
+93.Density curves of multiple groups of data
+```{r(USA.Covid.Data)}
+ggplot(USAS, aes(x = V2, fill = V3)) +
++     geom_density(alpha = .3)
+```
+94.Faceted graph
+```{r(USA.Covid.Data)}
+ ggplot(USAS, aes(x = V2)) +
++     geom_density() +
++     facet_grid(V1 ~ .)
+```
+95.Making a frequency polygon
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x=1340010)) +
++     geom_freqpoly()
+```
+96.Adding notches to a boxplot
+```{r(USA.Covid.Data)}
+ggplot(USA.Covid.Data, aes(x = factor(V2), y = V3)) +
++     geom_boxplot(notch = TRUE)
+```
+97.Making a piechart
+a)Get a table of how many cases are in each level of V1
+b)Reduce margins so there's less blank space around the plot
+c)Make the pie chart
+```{r(USA.Covid.Data)}
+ ame<-table(USA.Covid.Data$V2)
+ par(mar=c(1,1,1,1))
+pie(ame)
+```
+98.Summarising data by groups
+```{r(USA.Covid.Data)}
+summarise(USA.Covid.Data,TotalCases=mean(V2))
+```
+99.group by
+```{r(USA.Covid.Data)}
+group_by(USA.Covid.Data, V2)
+ USA.Covid.Data %>% group_by(V2)
+```
+100.max 
+computes max value of column
+```{r(USA.Covid.Data)}
+max(V2)
+```
+
