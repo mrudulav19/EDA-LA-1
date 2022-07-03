@@ -1,0 +1,263 @@
+---ogram
+title: "test2"
+output: html_document
+date: '2022-07-01'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r cars}
+la1<-read.csv(file.choose(),header=TRUE)
+la1
+```
+chapter 2.
+1.scatter plot
+```{r}
+plot(la1$Total.Cases,la1$Total.Deaths)
+```
+
+2.line graph
+```{r}
+library(ggplot2)
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) +
+geom_line()
+```
+3.bar graph
+```{r}
+ggplot(la1, aes(x = Total.Deaths, y = Total.Cases)) +
+geom_col()
+```
+4.bar graph of counts
+```{r}
+ggplot(la1, aes(x = factor(Total.Deaths))) +
+geom_bar()
+```
+5. making a histogram
+```{r}
+u1<-la1$Total.Deaths[1:10]
+u1
+hist(u1, breaks = 10)
+```
+6.histogram with  bin
+```{r}
+ggplot(la1, aes(x = Total.Deaths)) +
+geom_histogram(binwidth =3)
+```
+7.boxplot
+```{r}
+boxplot(Total.Cases ~ Total.Deaths , data = la1)
+```
+8.function curve
+```{r}
+curve(x^3 - 5*x, from = -4, to = 4)
+```
+9.box plot for multiple variables by combining the variables with interaction
+```{r}
+ggplot(la1, aes(x = interaction(Total.Cases, Total.Deaths), y = Total.Tests)) +
+geom_boxplot()
+```
+10.bar plot of values
+```{r}
+barplot(la1$Total.Cases, names.arg = la1$State)
+```
+11.making a basic bar graph
+```{r}
+ggplot(la1, aes(x = Total.Deaths, y = Active.Cases)) +
+geom_col()
+```
+12.converting continuous variable to discrete variable
+```{r}
+ggplot(la1, aes(x = factor(Total.Cases), y = Total.Deaths)) +
+geom_col()
+```
+13.adding color to bar graph
+```{r}
+ggplot(la1, aes(x = Total.Deaths, y = Active.Cases)) +
+geom_col(fill = "lightpink", colour = "red")
+```
+14.grouping bars together by a second variable
+```{r}
+ggplot(la1, aes(x = Total.Deaths, y =Total.Cases, fill = Total.Tests)) +
+geom_col(position = "dodge")
+```
+15.adding outline and color palette to grouped bars
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Recovered, fill = State)) +
+geom_col(position = "dodge", colour = "black") +
+scale_fill_brewer(palette = "Pastel1")
+```
+16.graph with a missing bar
+```{r}
+library(ggplot2)
+ce <-la1[1:5]
+ggplot(ce, aes(x = factor(Total.Cases),y=Total.Recovered, fill = State)) +
+geom_col(position = "dodge", colour = "black") +
+scale_fill_brewer(palette = "Pastel1")
+```
+17.making bar graph of counts
+```{r}
+ggplot(la1, aes(x = Total.Deaths)) +
+geom_bar()
+```
+18.bar graph of counts on a continuous axis
+```{r}
+ggplot(la1, aes(x = Total.Deaths)) +
+geom_bar(stat= "bin")
+```
+19.adding color to bars using arrange
+```{r}
+library(dplyr)
+trial <- la1 %>%
+arrange(desc(Total.Deaths)) %>%
+slice(1:10)
+ggplot(trial, aes(x = Total.Cases, y = Total.Deaths, fill = State)) +
+geom_col()
+```
+20.stacked bar graph
+```{r}
+ggplot(la1, aes(x = Total.Deaths, y = Total.Cases, fill = State)) +
+geom_col()
+```
+chp-4 line graph
+
+21.Basic line graph with a factor on the x-axis. When the x variable is a factor, you must also use aes(group=1) to ensure that ggplot knows that the data points belong together and should be connected with a line
+```{r}
+la3 <- la1 # Make a copy of the data
+la3$Total.Cases <- factor(la3$Total.Cases)
+ggplot(la3, aes(x = Total.Cases, y = Total.Deaths, group = 1)) +
+geom_line()
+```
+22.Line graph with manually set y range.
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) + geom_line() + expand_limits(y = 0)
+```
+23.Adding Points to a Line Graph
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) +geom_line() +geom_point()
+```
+24.log y axis - Sometimes it is useful to indicate each data point on a line graph. This is helpful when the density of observations is low, or when the
+observations do not happen at regular intervals.
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) + geom_line() + geom_point() + scale_y_log10()
+```
+25.Making a Line Graph with Multiple Lines.In addition to the variables mapped to the x- and y-axes, map another (discrete) variable
+to colour or linetype,as shown below.
+```{r}
+# Map state to colour
+ggplot(la1, aes(x = Total.Deaths, y = Active.Cases, colour = State)) +
+geom_line()
+# Map state to linetype
+ggplot(la1, aes(x = Total.Deaths, y = Active.Cases, linetype = State)) +
+geom_line()
+```
+26.Changing the Appearance of Lines
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) + geom_line(linetype = "dashed", size = 1, colour = "blue")
+```
+27.change the appearance of the points in a line graph.- In geom_point(), set the size, shape, colour, and/or fill outside of aes()
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) + geom_line() + geom_point(size = 4, shape = 22, colour = "darkred", fill = "pink")
+```
+28.Making a Graph with a Shaded Area -Use geom_area() to get a shaded area,
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) + geom_area()
+```
+29.Making a Stacked Area Graph- Use geom_area() and map a factor to fill
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths, fill = factor(Total.Tests))) + geom_area()
+```
+30.Adding a Confidence Region - Use geom_ribbon() and map values to ymin and ymax.
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) +geom_ribbon(aes(ymin = Total.Recovered - Total.Deaths, ymax = Total.Deaths + Total.Recovered),alpha = 0.2) +geom_line()
+```
+chp-5 scatterplots
+31.Making a Basic Scatter Plot
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) +geom_point()
+```
+32.Grouping Points Together Using Shapes or Colors - we want to visually group points by some variable (the grouping variable), using different
+shapes or colors.
+```{r}
+library(dplyr)
+trial<- la1 %>%select(Total.Cases, Total.Deaths, Total.Recovered)
+ggplot(trial, aes(x = Total.Cases, y = Total.Recovered, shape = factor(Total.Deaths), colour = factor(Total.Deaths))) + geom_point()
+```
+33.Using Different Point Shapes- You want to change the default scatter plot shapes for the data points.You can set the shape of all the data points at once by setting a shape in geom_point(): 
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) + geom_point(shape = 3)
+```
+34.Mapping a Continuous Variable to Color or Size-You want to represent a third continuous variable using color.
+```{r}
+ggplot(la_mod, aes(x = Total.Recovered, y = Total.Cases, colour = Total.Deaths)) +geom_point()
+```
+35.data with discrete x variable 
+```{r}
+cw_sp <- ggplot(la1, aes(x = Total.Cases, y = Total.Recovered))
+cw_sp +geom_point()
+cw_sp +geom_point(position = "jitter") # Equivalent to using geom_jitter()
+cw_sp +geom_point(position = position_jitter(width = .5, height = 0))
+```
+36.Adding Fitted Regression Model Lines
+```{r}
+cw_sp +geom_point() +stat_smooth(method = lm)
+```
+37.LOESS (locally weighted polynomial) curve
+```{r}
+cw_sp + geom_point(colour = "grey60") +stat_smooth(method = loess)
+``` 
+38.Adding marginal rugs to a scatter plot
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Deaths)) +geom_point() +geom_rug()
+```
+39.Labeling Points in a Scatter Plot
+```{r}
+usa_sp <- ggplot(la3, aes(x = Total.Cases, y = Total.Deaths)) +geom_point()
+usa_sp +geom_text(aes(label = State), size = 4)
+```
+40.balloon plot
+```{r}
+cdat_sp <- ggplot(la3, aes(x = Total.Cases, y = Total.Recovered, size = Total.Deaths)) +geom_point(shape = 21, colour = "black", fill = "cornsilk")
+cdat_sp
+```
+chp-6 summarizing data
+41.Making Multiple Histograms from Grouped Data
+```{r}
+ggplot(la2, aes(x = Total.Cases)) + geom_histogram(fill = "white", colour = "black") +facet_grid(State ~ .)
+```
+42.multiple histogram with different fill colors
+```{r}
+ggplot(la2, aes(x = Total.Cases, fill = State)) +geom_histogram(position = "identity", alpha = 0.4)
+```
+43.Density curve
+```{r}
+ggplot(la1, aes(x = Total.Cases)) +geom_density()
+```
+44.Making Multiple Density Curves from Grouped Data
+```{r}
+ggplot(la1, aes(x = Total.Cases, fill = Total.Deaths)) +geom_density(alpha = .3)
+```
+45.Making a Frequency Polygon= make a frequency polygon
+```{r}
+ggplot(la1, aes(x=Total.Cases)) + geom_freqpoly()
+```
+46.Adding notches to a box plot
+```{r}
+ggplot( la1,aes(x = factor(State), y = Total.Recovered)) +geom_boxplot(notch = TRUE)
+```
+47.Making a Violin Plot
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Recovered, size = Total.Deaths))+geom_violin()
+```
+48.Wilkinson dotplot
+```{r}
+library(dplyr)
+c2009 <- la1 %>% filter(Total.Deaths > 20000)
+c2009_p <- ggplot(c2009, aes(x = Total.Deaths))
+c2009_p +geom_dotplot()
+```
+49.Making Multiple Dot Plots for Grouped Data
+```{r}
+ggplot(la1, aes(x = Total.Cases, y = Total.Recovered)) +geom_dotplot(binaxis = "y", binwidth = .5, stackdir = "center")
+```
